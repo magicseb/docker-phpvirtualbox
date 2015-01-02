@@ -9,7 +9,9 @@ RUN yum -y install epel-release && \
 RUN yum -y install wget kernel make kernel-devel gcc unzip php php-soap passwd
 
 RUN wget -O /etc/yum.repos.d/virtualbox.repo "http://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo" && \
-    yum -y install VirtualBox-4.3 && \
+    VERSION=$(yum list | grep VirtualBox) && \
+    VERSION=(${VERSION// / }) && \
+    yum -y install ${VERSION[0]} && \
     yum clean all
 
 RUN VERSION=$(VBoxManage -v | tail -1) && \
@@ -20,13 +22,12 @@ RUN VERSION=$(VBoxManage -v | tail -1) && \
     VBoxManage extpack install $EXTPACK_PATH && \
     rm -f $EXTPACK_PATH
 
-RUN PHP=phpvirtualbox-4.3-2 && \
-    wget -O /var/www/html/$PHP.zip "http://jaist.dl.sourceforge.net/project/phpvirtualbox/"$PHP".zip" && \
-    cd /var/www/html && \
-    unzip $PHP.zip && \
-    rm -rf $PHP.zip && \
-    ln -sf $PHP ./phpvirtualbox && \
-    cd $PHP && \
+RUN cd /var/www/html && \
+    wget "http://sourceforge.net/projects/phpvirtualbox/files/latest/download" && \
+    unzip download && \
+    rm -rf download && \
+    mv phpvirtualbox* phpvirtualbox && \
+    cd phpvirtualbox && \
     mv config.php-example config.php && \
     PASSWORD=$(pwgen -cnys1 16) && \
     useradd vbox && \
