@@ -1,13 +1,9 @@
 docker-phpvirtualbox
-====================
-
-####Dockerize the "LATEST" version of VirtualBox with Extension Pack and phpvirtualbox
-
 
 ###FAQ
 
 ####How to run?
-#####see `run.sh`
+#####see [`run.sh`](https://raw.githubusercontent.com/wood1986/docker-phpvirtualbox/master/run.sh)
 
-####How do I know password of the "vbox"?
+####How do I know vbox's password?
 #####open `/var/www/phpvirtualbox/config.php`
