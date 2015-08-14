@@ -23,7 +23,7 @@ RUN VERSION=$(VBoxManage -v | tail -1) && \
     rm -f $EXTPACK_PATH
 
 RUN cd /var/www/html && \
-    wget "http://sourceforge.net/projects/phpvirtualbox/files/latest/download" && \
+    wget "http://sourceforge.net/projects/phpvirtualbox/files/phpvirtualbox-4.3-3.zip/download" && \
     unzip download && \
     rm -rf download && \
     mv phpvirtualbox* phpvirtualbox && \
